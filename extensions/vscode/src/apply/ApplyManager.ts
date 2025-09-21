@@ -35,6 +35,11 @@ export class ApplyManager {
 
     let activeTextEditor = vscode.window?.activeTextEditor;
 
+    console.warn(`vscode.window?.activeTextEditor: ${activeTextEditor}`);
+    void vscode.window?.showErrorMessage(
+      `vscode.window?.activeTextEditor: ${activeTextEditor}`,
+    );
+
     if (!activeTextEditor) {
       console.warn("vscode.window?.activeTextEditor is null");
 
@@ -42,6 +47,9 @@ export class ApplyManager {
       if (vscode.workspace.textDocuments.length > 0) {
         try {
           console.info("vscode.window?.activeTextEditor is null");
+          void vscode.window?.showErrorMessage(
+            "vscode.window?.activeTextEditor is null",
+          );
           const doc = await vscode.workspace.openTextDocument(filepath);
           console.info(`doc: ${doc}`);
           console.info(
@@ -60,6 +68,9 @@ export class ApplyManager {
         }
       } else {
         console.warn("vscode.workspace.textDocuments.length is 0");
+        void vscode.window?.showErrorMessage(
+          "vscode.workspace.textDocuments.length is 0",
+        );
       }
     }
 
