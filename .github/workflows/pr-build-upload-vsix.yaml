@@ -5,6 +5,8 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
       - v1.2.3-vscode-release-fix.1
 
 jobs:
