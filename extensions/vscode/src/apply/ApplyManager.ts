@@ -36,16 +36,26 @@ export class ApplyManager {
     let activeTextEditor = vscode.window?.activeTextEditor;
 
     if (!activeTextEditor) {
+      console.warn("vscode.window?.activeTextEditor is null");
+
       // If vscode.window is not available or activeTextEditor is null, try to find an editor
       if (vscode.workspace.textDocuments.length > 0) {
         try {
+          console.info("vscode.window?.activeTextEditor is null");
           const doc = await vscode.workspace.openTextDocument(filepath);
+          console.info(`doc: ${doc}`);
+          console.info(
+            `vscode.window.visibleTextEditors: ${vscode.window.visibleTextEditors.length}`,
+          );
+
           activeTextEditor = vscode.window.visibleTextEditors.find(
             (editor: { document: any }) => editor.document === doc,
           );
         } catch (error) {
           console.error("Error opening document:", error);
         }
+      } else {
+        console.warn("vscode.workspace.textDocuments.length is 0");
       }
     }
 
