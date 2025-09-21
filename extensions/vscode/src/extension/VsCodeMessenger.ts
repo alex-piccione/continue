@@ -163,18 +163,36 @@ export class VsCodeMessenger {
         await this.ide.openFile(filepath);
 
         // Get active text editor
-        const editor = vscode.window.activeTextEditor;
+        let activeTextEditor = vscode.window?.activeTextEditor;
 
-        if (!editor) {
-          vscode.window.showErrorMessage("No active editor to apply edits to");
+        if (!activeTextEditor) {
+          // If vscode.window is not available or activeTextEditor is null, try to find an editor
+          if (vscode.workspace.textDocuments.length > 0) {
+            try {
+              const doc = await vscode.workspace.openTextDocument(filepath);
+              activeTextEditor = vscode.window.visibleTextEditors.find(
+                (editor: { document: any }) => editor.document === doc,
+              );
+            } catch (error) {
+              console.error("Error opening document:", error);
+            }
+          }
+        }
+
+        if (!activeTextEditor) {
+          void vscode.window?.showErrorMessage(
+            "BBB No active editor found to apply edits to. Ensure a file is open.",
+          );
           return;
         }
 
-        editor.edit((builder) =>
+        activeTextEditor.edit((builder: String) =>
           builder.replace(
             new vscode.Range(
-              editor.document.positionAt(0),
-              editor.document.positionAt(editor.document.getText().length),
+              activeTextEditor.document.positionAt(0),
+              activeTextEditor.document.positionAt(
+                activeTextEditor.document.getText().length,
+              ),
             ),
             prevFileContent,
           ),

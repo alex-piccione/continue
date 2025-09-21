@@ -33,9 +33,26 @@ export class ApplyManager {
       await this.ensureFileOpen(filepath);
     }
 
-    const { activeTextEditor } = vscode.window;
+    let activeTextEditor = vscode.window?.activeTextEditor;
+
     if (!activeTextEditor) {
-      void vscode.window.showErrorMessage("No active editor to apply edits to");
+      // If vscode.window is not available or activeTextEditor is null, try to find an editor
+      if (vscode.workspace.textDocuments.length > 0) {
+        try {
+          const doc = await vscode.workspace.openTextDocument(filepath);
+          activeTextEditor = vscode.window.visibleTextEditors.find(
+            (editor: { document: any }) => editor.document === doc,
+          );
+        } catch (error) {
+          console.error("Error opening document:", error);
+        }
+      }
+    }
+
+    if (!activeTextEditor) {
+      void vscode.window?.showErrorMessage(
+        "AAA No active editor found to apply edits to. Ensure a file is open.",
+      );
       return;
     }
 
