@@ -51,6 +51,10 @@ export class ApplyManager {
           activeTextEditor = vscode.window.visibleTextEditors.find(
             (editor: { document: any }) => editor.document === doc,
           );
+
+          console.info(
+            `vscode.window.visibleTextEditors.find: ${activeTextEditor}`,
+          );
         } catch (error) {
           console.error("Error opening document:", error);
         }
