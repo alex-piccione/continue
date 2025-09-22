@@ -34,37 +34,41 @@ export class ApplyManager {
     }
 
     let activeTextEditor = vscode.window?.activeTextEditor;
-
-    console.warn(`vscode.window?.activeTextEditor: ${activeTextEditor}`);
     void vscode.window?.showErrorMessage(
-      `vscode.window?.activeTextEditor: ${activeTextEditor}`,
+      `vscode.window?.activeTextEditor: ${activeTextEditor}`, // undefined
     );
 
     if (!activeTextEditor) {
-      console.warn("vscode.window?.activeTextEditor is null");
+      //console.warn("vscode.window?.activeTextEditor is null or undefined");
 
       // If vscode.window is not available or activeTextEditor is null, try to find an editor
       if (vscode.workspace.textDocuments.length > 0) {
         try {
-          console.info("vscode.window?.activeTextEditor is null");
+          console.info("vscode.workspace.textDocuments.length > 0");
           void vscode.window?.showErrorMessage(
-            "vscode.window?.activeTextEditor is null",
+            "vscode.workspace.textDocuments.length > 0",
           );
           const doc = await vscode.workspace.openTextDocument(filepath);
-          console.info(`doc: ${doc}`);
-          console.info(
-            `vscode.window.visibleTextEditors: ${vscode.window.visibleTextEditors.length}`,
-          );
+          await vscode.window.showTextDocument(doc, { preview: false });
+
+          void vscode.window?.showErrorMessage(`doc: ${doc}`);
 
           activeTextEditor = vscode.window.visibleTextEditors.find(
             (editor: { document: any }) => editor.document === doc,
           );
 
-          console.info(
-            `vscode.window.visibleTextEditors.find: ${activeTextEditor}`,
+          void vscode.window?.showErrorMessage(
+            `vscode.window.visibleTextEditors: ${vscode.window.visibleTextEditors.length}`,
+          );
+
+          void vscode.window?.showErrorMessage(
+            `vscode.window?.activeTextEditor (from visibleTextEditors): ${activeTextEditor}`,
           );
         } catch (error) {
           console.error("Error opening document:", error);
+          void vscode.window?.showErrorMessage(
+            `Error opening document: ${error}`,
+          );
         }
       } else {
         console.warn("vscode.workspace.textDocuments.length is 0");
