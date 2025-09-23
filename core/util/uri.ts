@@ -1,5 +1,5 @@
 import * as URI from "uri-js";
-import * as vscode from "vscode";
+//import * as vscode from "vscode";
 
 /** Converts any OS path to cleaned up URI path segment format with no leading/trailing slashes
    e.g. \path\to\folder\ -> path/to/folder
@@ -116,7 +116,8 @@ export function getLastNUriRelativePathParts(
   return getLastNPathParts(relativePathOrBasename, n);
 }
 
-export function joinPathsToUri(uri: string, ...pathSegments: string[]) {
+/*
+export function joinPathsToUri_new(uri: string, ...pathSegments: string[]) {
   console.log("joinPathsToUri input:", { uri, pathSegments });
 
   const baseUri = vscode.Uri.parse(uri);
@@ -124,6 +125,31 @@ export function joinPathsToUri(uri: string, ...pathSegments: string[]) {
 
   console.log("VS Code joinPath result:", result.toString());
   return result.toString();
+}*/
+
+// URI.resolve() from uri-js follows RFC 3986 URI resolution rules, which can behave unexpectedly when you're trying to simply append path segments.
+//Simple Fix
+//Try replacing URI.resolve() with direct concatenation:
+export function joinPathsToUri(uri: string, ...pathSegments: string[]) {
+  console.log("joinPathsToUri input:", { uri, pathSegments });
+
+  let baseUri = uri;
+  if (baseUri.at(-1) !== "/") {
+    baseUri += "/";
+  }
+  console.log("baseUri after slash check:", baseUri);
+
+  const segments = pathSegments.map((segment) => pathToUriPathSegment(segment));
+  console.log("processed segments:", segments);
+
+  const joinedSegments = segments.join("/");
+  console.log("joined segments:", joinedSegments);
+
+  // Replace URI.resolve() with direct concatenation
+  const result = baseUri + joinedSegments;
+  console.log("final result:", result);
+
+  return result;
 }
 
 export function joinPathsToUri_original(
