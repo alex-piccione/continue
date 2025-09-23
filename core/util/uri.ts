@@ -1,4 +1,5 @@
 import * as URI from "uri-js";
+import * as vscode from "vscode";
 
 /** Converts any OS path to cleaned up URI path segment format with no leading/trailing slashes
    e.g. \path\to\folder\ -> path/to/folder
@@ -115,6 +116,16 @@ export function getLastNUriRelativePathParts(
   return getLastNPathParts(relativePathOrBasename, n);
 }
 
+export function joinPathsToUri(uri: string, ...pathSegments: string[]) {
+  console.log("joinPathsToUri input:", { uri, pathSegments });
+
+  const baseUri = vscode.Uri.parse(uri);
+  const result = vscode.Uri.joinPath(baseUri, ...pathSegments);
+
+  console.log("VS Code joinPath result:", result.toString());
+  return result.toString();
+}
+
 export function joinPathsToUri_original(
   uri: string,
   ...pathSegments: string[]
@@ -127,7 +138,10 @@ export function joinPathsToUri_original(
   return URI.resolve(baseUri, segments.join("/"));
 }
 
-export function joinPathsToUri(uri: string, ...pathSegments: string[]) {
+export function joinPathsToUri_original_with_logs(
+  uri: string,
+  ...pathSegments: string[]
+) {
   console.log("joinPathsToUri input:", { uri, pathSegments });
 
   let baseUri = uri;

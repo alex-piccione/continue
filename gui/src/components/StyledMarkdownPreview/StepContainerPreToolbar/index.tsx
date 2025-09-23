@@ -180,6 +180,9 @@ export function StepContainerPreToolbar({
   async function onClickApply() {
     const fileUri = await getFileUriToApplyTo();
     if (!fileUri) {
+      console.error(
+        `onClickApply. Could not resolve filepath to apply changes. fileUri: "${fileUri}".`,
+      );
       void ideMessenger.ide.showToast(
         "error",
         "Could not resolve filepath to apply changes",

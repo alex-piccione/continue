@@ -32,7 +32,7 @@ export const editFileTool: Tool = {
         filepath: {
           type: "string",
           description:
-            "The path of the file to edit, relative to the root of the workspace.",
+            "The path of the file to edit, relative to the root of the workspace.", // logs shows the path can be absolute
         },
         changes: {
           type: "string",
