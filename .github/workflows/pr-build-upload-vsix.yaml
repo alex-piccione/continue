@@ -41,14 +41,14 @@ jobs:
           commit-sha: ${{ github.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      #- name: Upload build artifact
-      #  uses: actions/upload-artifact@v4
-      #  with:
-      #    name: vscode-extension-build-${{ matrix.platform }}-${{ matrix.arch }}
-      #    path: extensions/vscode/build
-
-      - name: Upload .vsix artifact
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.platform }}-${{ matrix.arch }}-vsix
-          path: "extensions/vscode/*.vsix"
+          name: vscode-extension-build-${{ matrix.platform }}-${{ matrix.arch }}
+          path: extensions/vscode/build
+
+      #- name: Upload .vsix artifact
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: ${{ matrix.platform }}-${{ matrix.arch }}-vsix
+      #    path: "extensions/vscode/*.vsix"
