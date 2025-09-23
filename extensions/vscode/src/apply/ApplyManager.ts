@@ -34,6 +34,7 @@ export class ApplyManager {
     }
 
     console.info(`applyToFile. filepath: ${filepath}`);
+    void vscode.window?.showInfoMessage(`applyToFile. filepath: ${filepath}`);
 
     let activeTextEditor = vscode.window?.activeTextEditor;
     void vscode.window?.showErrorMessage(

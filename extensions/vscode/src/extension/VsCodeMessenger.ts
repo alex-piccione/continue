@@ -162,6 +162,9 @@ export class VsCodeMessenger {
         }
 
         console.info(`onWebview overwriteFile. filepath: ${filepath}`);
+        void vscode.window?.showInfoMessage(
+          `onWebview overwriteFile. filepath: ${filepath}`,
+        );
 
         await this.ide.openFile(filepath);
 
