@@ -161,6 +161,8 @@ export class VsCodeMessenger {
           return;
         }
 
+        // console.info/warn/error does not work here
+
         console.info(`onWebview overwriteFile. filepath: ${filepath}`);
         void vscode.window?.showInfoMessage(
           `onWebview overwriteFile. filepath: ${filepath}`,

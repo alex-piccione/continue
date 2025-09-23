@@ -33,6 +33,8 @@ export class ApplyManager {
       await this.ensureFileOpen(filepath);
     }
 
+    // console.info/warn/error does not work here
+
     console.info(`applyToFile. filepath: ${filepath}`);
     void vscode.window?.showInfoMessage(`applyToFile. filepath: ${filepath}`);
 
