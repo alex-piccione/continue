@@ -33,7 +33,7 @@ export class ApplyManager {
       await this.ensureFileOpen(filepath);
     }
 
-    console.info(`fielpath: ${filepath}`);
+    console.info(`applyToFile. filepath: ${filepath}`);
 
     let activeTextEditor = vscode.window?.activeTextEditor;
     void vscode.window?.showErrorMessage(
@@ -67,9 +67,11 @@ export class ApplyManager {
             `vscode.window?.activeTextEditor (from visibleTextEditors): ${activeTextEditor}`,
           );
         } catch (error) {
-          console.error("Error opening document:", error);
+          console.error(
+            `applyToFile. Error opening document "${filepath}". ${error}`,
+          );
           void vscode.window?.showErrorMessage(
-            `Error opening document: ${error}`,
+            `applyToFile. Error opening document "${filepath}". ${error}`,
           );
         }
       } else {

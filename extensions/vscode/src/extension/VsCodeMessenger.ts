@@ -161,6 +161,8 @@ export class VsCodeMessenger {
           return;
         }
 
+        console.info(`onWebview overwriteFile. filepath: ${filepath}`);
+
         await this.ide.openFile(filepath);
 
         // Get active text editor
@@ -175,9 +177,11 @@ export class VsCodeMessenger {
                 (editor: { document: any }) => editor.document === doc,
               );
             } catch (error) {
-              console.error("Error opening document:", error);
+              console.error(
+                `overwriteFile. Error opening document "${filepath}" ${error}`,
+              );
               void vscode.window?.showErrorMessage(
-                `Error opening document: ${error}`,
+                `overwriteFile. Error opening document "${filepath}": ${error}`,
               );
             }
           }

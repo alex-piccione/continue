@@ -132,12 +132,16 @@ export function joinPathsToUri_new(uri: string, ...pathSegments: string[]) {
 //Try replacing URI.resolve() with direct concatenation:
 export function joinPathsToUri(uri: string, ...pathSegments: string[]) {
   console.log("joinPathsToUri input:", { uri, pathSegments });
+  /* 
+  pathSegments: ['src/styles/_variables.scss']
+  uri: "file:///d%3A/Programming/PROJECTS/Portfolio/website"
+  */
 
   let baseUri = uri;
   if (baseUri.at(-1) !== "/") {
     baseUri += "/";
   }
-  console.log("baseUri after slash check:", baseUri);
+  console.log("baseUri after slash check:", baseUri); // baseUri after slash check: file:///d%3A/Programming/PROJECTS/Portfolio/website/
 
   const segments = pathSegments.map((segment) => pathToUriPathSegment(segment));
   console.log("processed segments:", segments);
@@ -147,7 +151,12 @@ export function joinPathsToUri(uri: string, ...pathSegments: string[]) {
 
   // Replace URI.resolve() with direct concatenation
   const result = baseUri + joinedSegments;
-  console.log("final result:", result);
+  const result_2 = URI.resolve(baseUri, joinedSegments);
+
+  console.info("result 1", result);
+  console.info("result 2", result_2);
+
+  console.log("final result:", result); // file:///d%3A/Programming/PROJECTS/Portfolio/website/src/styles/_variables.scss
 
   return result;
 }
