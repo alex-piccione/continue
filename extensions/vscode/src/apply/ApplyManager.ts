@@ -33,6 +33,8 @@ export class ApplyManager {
       await this.ensureFileOpen(filepath);
     }
 
+    console.info(`fielpath: ${filepath}`);
+
     let activeTextEditor = vscode.window?.activeTextEditor;
     void vscode.window?.showErrorMessage(
       `vscode.window?.activeTextEditor: ${activeTextEditor}`, // undefined

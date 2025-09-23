@@ -115,13 +115,37 @@ export function getLastNUriRelativePathParts(
   return getLastNPathParts(relativePathOrBasename, n);
 }
 
-export function joinPathsToUri(uri: string, ...pathSegments: string[]) {
+export function joinPathsToUri_original(
+  uri: string,
+  ...pathSegments: string[]
+) {
   let baseUri = uri;
   if (baseUri.at(-1) !== "/") {
     baseUri += "/";
   }
   const segments = pathSegments.map((segment) => pathToUriPathSegment(segment));
   return URI.resolve(baseUri, segments.join("/"));
+}
+
+export function joinPathsToUri(uri: string, ...pathSegments: string[]) {
+  console.log("joinPathsToUri input:", { uri, pathSegments });
+
+  let baseUri = uri;
+  if (baseUri.at(-1) !== "/") {
+    baseUri += "/";
+  }
+  console.log("baseUri after slash check:", baseUri);
+
+  const segments = pathSegments.map((segment) => pathToUriPathSegment(segment));
+  console.log("processed segments:", segments);
+
+  const joinedSegments = segments.join("/");
+  console.log("joined segments:", joinedSegments);
+
+  const result = URI.resolve(baseUri, joinedSegments);
+  console.log("final result:", result);
+
+  return result;
 }
 
 export function joinEncodedUriPathSegmentToUri(

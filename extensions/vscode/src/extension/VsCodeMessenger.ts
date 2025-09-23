@@ -145,6 +145,7 @@ export class VsCodeMessenger {
         configHandler,
       );
 
+      console.info(`call applyToFile from onWebview. data: ${data}`);
       await applyManager.applyToFile(data);
     });
 
@@ -175,6 +176,9 @@ export class VsCodeMessenger {
               );
             } catch (error) {
               console.error("Error opening document:", error);
+              void vscode.window?.showErrorMessage(
+                `Error opening document: ${error}`,
+              );
             }
           }
         }

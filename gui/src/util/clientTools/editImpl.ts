@@ -12,6 +12,8 @@ export const editToolImpl: ClientToolImpl = async (
       "`filepath` and `changes` arguments are required to edit an existing file.",
     );
   }
+
+  console.info(`editToolImpl. filepath: ${args.filepath}`);
   const firstUriMatch = await resolveRelativePathInDir(
     args.filepath,
     extras.ideMessenger.ide,
