@@ -18,6 +18,9 @@ export const editToolImpl: ClientToolImpl = async (
     args.filepath,
     extras.ideMessenger.ide,
   );
+
+  console.info(`editToolImpl. firstUriMatch: ${firstUriMatch}`);
+
   if (!firstUriMatch) {
     throw new Error(`${args.filepath} does not exist`);
   }

@@ -25,6 +25,10 @@ export const handleApplyStateUpdate = createAsyncThunk<
 >(
   "apply/handleStateUpdate",
   async (applyState, { dispatch, getState, extra }) => {
+    console.info(
+      `handleApplyStateUpdate - applyState.filepath: ${applyState.filepath} (applyState.streamId: ${applyState.streamId})`,
+    );
+
     if (applyState.streamId === EDIT_MODE_STREAM_ID) {
       dispatch(updateEditStateApplyState(applyState));
 
