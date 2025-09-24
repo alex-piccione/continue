@@ -26,10 +26,12 @@ export const handleApplyStateUpdate = createAsyncThunk<
   "apply/handleStateUpdate",
   async (applyState, { dispatch, getState, extra }) => {
     console.info(
-      `handleApplyStateUpdate - applyState.filepath: ${applyState.filepath} (applyState.streamId: ${applyState.streamId})`,
+      `handleApplyStateUpdate - applyState.toolCallId: ${applyState.toolCallId} - applyState.filepath: ${applyState.filepath} (applyState.streamId: ${applyState.streamId})`,
     );
 
     if (applyState.streamId === EDIT_MODE_STREAM_ID) {
+      console.info(`call dispatch(updateEditStateApplyState(applyState));`);
+
       dispatch(updateEditStateApplyState(applyState));
 
       if (applyState.status === "closed") {
@@ -43,6 +45,8 @@ export const handleApplyStateUpdate = createAsyncThunk<
         void dispatch(exitEdit({}));
       }
     } else {
+      console.info(`call dispatch(updateApplyState(applyState));`);
+      console.info("applyState", applyState);
       // chat or agent
       dispatch(updateApplyState(applyState));
 

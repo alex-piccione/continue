@@ -87,7 +87,7 @@ export class ApplyManager {
 
     if (!activeTextEditor) {
       void vscode.window?.showErrorMessage(
-        "AAA No active editor found to apply edits to. Ensure a file is open.",
+        "applyToFile - No active editor found to apply edits to. Ensure a file is open.",
       );
       return;
     }
