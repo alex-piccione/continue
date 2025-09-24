@@ -36,7 +36,9 @@ export class ApplyManager {
     // console.info/warn/error does not work here
 
     console.info(`applyToFile. filepath: ${filepath}`);
-    void vscode.window?.showInfoMessage(`applyToFile. filepath: ${filepath}`);
+    void vscode.window?.showInformationMessage(
+      `applyToFile. filepath: ${filepath}`,
+    );
 
     let activeTextEditor = vscode.window?.activeTextEditor;
     void vscode.window?.showErrorMessage(
