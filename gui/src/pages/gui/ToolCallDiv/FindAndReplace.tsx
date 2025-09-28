@@ -136,7 +136,7 @@ export function FindAndReplaceDisplay({
       return {
         diff: null,
         newContent: null,
-        error: error instanceof Error ? error.message : "Unknown error",
+        error: error instanceof Error ? error.message : `${error}`,
       };
     }
   }, [currentFileContent, edits]);
@@ -220,7 +220,7 @@ export function FindAndReplaceDisplay({
   if (diffResult?.error) {
     return renderContainer(
       <div className="text-error p-3 text-sm">
-        <strong>Error generating diff</strong>
+        <strong>Error generating diff. Error: {diffResult?.error}</strong>
       </div>,
     );
   }
